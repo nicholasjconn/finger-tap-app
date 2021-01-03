@@ -1,7 +1,7 @@
 {
-  "name": "finger-tap-app",
+  "name": "finger-tap",
   "version": "1.0.0",
-  "description": "",
+  "description": "Learn to use Tap Strap 2 with better custom keybinds.",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {

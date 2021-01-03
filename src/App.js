@@ -15,34 +15,57 @@ const fingerLookup = {
   m: [0, 0, 0, 1, 1],
   n: [1, 0, 1, 0, 0],
   d: [0, 1, 0, 1, 0],
-  u: [0, 0, 1, 0, 1],
+  v: [0, 0, 1, 0, 1],
   s: [1, 0, 0, 1, 0],
   l: [0, 1, 0, 0, 1],
   h: [1, 0, 0, 0, 1],
-  y: [1, 1, 0, 1, 1],
+  x: [1, 1, 0, 1, 1],
   k: [0, 1, 1, 1, 1],
   j: [1, 0, 1, 1, 1],
-  x: [1, 0, 1, 0, 1],
+  y: [1, 0, 1, 0, 1],
   z: [1, 1, 1, 0, 1],
-  v: [1, 1, 1, 1, 0],
+  u: [1, 1, 1, 1, 0],
   g: [1, 0, 1, 1, 0],
   q: [0, 1, 0, 1, 1],
   w: [1, 1, 0, 1, 0],
   p: [1, 0, 0, 1, 1],
   f: [1, 1, 0, 0, 1],
   b: [0, 1, 1, 1, 0],
-  "!": [0, 2, 0, 2, 0],
-  "?": [0, 2, 0, 0, 2],
   ".": [2, 0, 0, 0, 0],
-  ",": [0, 0, 0, 0, 2],
-  // i: [0, 0, 0, 0, 0]
-  // -
-  // Change comma since it is double 'o'
-  // 'u' is hard, switch with 'v'
+  ",": [2, 0, 0, 0, 2],
+  "!": [4, 4, 0, 0, 0],
+  "?": [4, 0, 4, 0, 0],
+  "@": [4, 0, 0, 4, 0],
+  "-": [4, 0, 0, 0, 4],
+  _: [0, 4, 4, 0, 0],
+  ":": [0, 0, 4, 4, 0],
+  "=": [0, 0, 0, 4, 4],
+  "*": [0, 4, 0, 4, 0],
+  "+": [0, 4, 0, 0, 4],
+  "(": [4, 4, 4, 4, 0],
+  ")": [0, 4, 4, 4, 4],
+  "{": [0, 0, 0, 4, 0],
+  "}": [0, 0, 0, 0, 4],
+  '"': [0, 4, 0, 0, 0],
+  "'": [0, 0, 4, 0, 0],
+  "[": [4, 0, 4, 4, 0],
+  "]": [4, 4, 0, 4, 0],
+  ";": [4, 0, 4, 4, 4],
+  "\t": [0, 4, 4, 4, 0],
+  "\n": [4, 0, 0, 0, 0]
 };
 
+const defaultTexts = [
+  "Big black bugs bled black blood.",
+  "I wish to wash my Irish wristwatch.",
+  "A skunk sat on a stump and thunk the stump stunk, but the stump thunk the skunk stunk.",
+  "Of all the felt I ever felt, I never felt a piece of felt which felt as fine as that felt felt when first I felt that felt hat's felt."
+];
+
 export default function App() {
-  const [targetText, setTargetText] = React.useState("Big black bugs bled black blood.");
+  const [targetText, setTargetText] = React.useState(
+    defaultTexts[Math.floor(Math.random() * defaultTexts.length)]
+  );
   const [typedText, setTypedText] = React.useState("");
   const [textIndex, setTextIndex] = React.useState(0);
 
@@ -59,6 +82,8 @@ export default function App() {
       return "blue";
     } else if (fingerLookup[key][index] === 2) {
       return "green";
+    } else if (fingerLookup[key][index] === 4) {
+      return "purple";
     }
   }
 
@@ -103,6 +128,17 @@ export default function App() {
       <h1>Learn to Tap</h1>
       <h3>With the Tap Strap 2</h3>
       <p>Enter text for training</p>
+      <button
+        style={{ fontSize: "12px" }}
+        onClick={() =>
+          setTargetText(
+            defaultTexts[Math.floor(Math.random() * defaultTexts.length)]
+          )
+        }
+      >
+        Try Random Text
+      </button>
+      ee
       <p>
         <TextInput
           style={{
@@ -118,7 +154,6 @@ export default function App() {
           numberOfLines={4}
         />
       </p>
-
       <p>
         <svg xmlns="http://www.w3.org/2000/svg" height="200">
           <circle
@@ -169,7 +204,7 @@ export default function App() {
           value={typedText}
         />
       </p>
-      <p style={{fontSize: "12px"}}>Click here and start typing.</p>
+      <p style={{ fontSize: "12px" }}>Click here and start typing.</p>
       <p>
         <button style={{ fontSize: "18px" }} onClick={() => resetButton()}>
           Reset
