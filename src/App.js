@@ -123,22 +123,21 @@ export default function App() {
     setTypedText("");
   }
 
+  function randomButton() {
+    resetButton();
+    setTargetText(
+      defaultTexts[Math.floor(Math.random() * defaultTexts.length)]
+    );
+  }
+
   return (
     <div className="App">
       <h1>Learn to Tap</h1>
       <h3>With the Tap Strap 2</h3>
       <p>Enter text for training</p>
-      <button
-        style={{ fontSize: "12px" }}
-        onClick={() =>
-          setTargetText(
-            defaultTexts[Math.floor(Math.random() * defaultTexts.length)]
-          )
-        }
-      >
+      <button style={{ fontSize: "12px" }} onClick={() => randomButton()}>
         Try Random Text
       </button>
-      ee
       <p>
         <TextInput
           style={{
