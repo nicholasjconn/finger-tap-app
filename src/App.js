@@ -185,7 +185,7 @@ export default function App() {
           numberOfLines={4}
         />
       </p>
-      <p style={{ fontSize: "12px", margin: "10%" }}>
+      <p style={{ fontSize: "12px", width: "80%", margin: "auto" }}>
         <span style={{ color: "grey" }}>unknown</span>,
         <span style={{ color: "black" }}> not pressed</span>,
         <span style={{ color: "blue" }}> single tap</span>,
