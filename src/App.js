@@ -51,15 +51,34 @@ const fingerLookup = {
   "[": [4, 0, 4, 4, 0],
   "]": [4, 4, 0, 4, 0],
   ";": [4, 0, 4, 4, 4],
+  "%": [0, 4, 0, 4, 4],
+  "/": [4, 0, 0, 4, 4],
+  "&": [4, 4, 0, 4, 4],
+  "|": [4, 4, 4, 0, 4],
+  "~": [0, 4, 4, 0, 4],
+  "\\": [4, 4, 0, 0, 4],
   "\t": [0, 4, 4, 4, 0],
-  "\n": [4, 0, 0, 0, 0]
+  "\n": [4, 0, 0, 0, 0],
+  "0": [5, 0, 0, 0, 0],
+  "1": [0, 5, 0, 0, 0],
+  "2": [0, 0, 5, 0, 0],
+  "3": [0, 0, 0, 5, 0],
+  "4": [0, 0, 0, 0, 5],
+  "5": [5, 5, 0, 0, 0],
+  "6": [5, 0, 5, 0, 0],
+  "7": [5, 0, 0, 5, 0],
+  "8": [5, 0, 0, 0, 5],
+  "9": [0, 5, 5, 0, 0],
+  "<": [5, 0, 5, 5, 0],
+  ">": [5, 5, 0, 5, 0]
 };
 
 const defaultTexts = [
   "Big black bugs bled black blood.",
   "I wish to wash my Irish wristwatch.",
   "A skunk sat on a stump and thunk the stump stunk, but the stump thunk the skunk stunk.",
-  "Of all the felt I ever felt, I never felt a piece of felt which felt as fine as that felt felt when first I felt that felt hat's felt."
+  "Of all the felt I ever felt, I never felt a piece of felt which felt as fine as that felt felt when first I felt that felt hat's felt.",
+  "for (uint8_t count = 0; count < 4; count++);"
 ];
 
 export default function App() {
@@ -74,16 +93,29 @@ export default function App() {
       key = "default";
     }
 
+    // Unknown key
     if (fingerLookup[key][index] === -1) {
       return "grey";
-    } else if (fingerLookup[key][index] === 0) {
+    }
+    // Do not tap
+    else if (fingerLookup[key][index] === 0) {
       return "black";
-    } else if (fingerLookup[key][index] === 1) {
+    }
+    // Single tap
+    else if (fingerLookup[key][index] === 1) {
       return "blue";
-    } else if (fingerLookup[key][index] === 2) {
+    }
+    // Double tap
+    else if (fingerLookup[key][index] === 2) {
       return "green";
-    } else if (fingerLookup[key][index] === 4) {
+    }
+    // Shift group (first three)
+    else if (fingerLookup[key][index] === 4) {
       return "purple";
+    }
+    // Switch group
+    else if (fingerLookup[key][index] === 5) {
+      return "orange";
     }
   }
 
@@ -153,6 +185,14 @@ export default function App() {
           numberOfLines={4}
         />
       </p>
+      <p style={{ fontSize: "12px", margin: "10%" }}>
+        <span style={{ color: "grey" }}>unknown</span>,
+        <span style={{ color: "black" }}> not pressed</span>,
+        <span style={{ color: "blue" }}> single tap</span>,
+        <span style={{ color: "green" }}> double tap</span>,
+        <span style={{ color: "purple" }}> shift</span>,
+        <span style={{ color: "orange" }}> switch</span>
+      </p>
       <p>
         <svg xmlns="http://www.w3.org/2000/svg" height="200">
           <circle
@@ -188,7 +228,16 @@ export default function App() {
         </svg>
       </p>
       <br />
-      <p style={{ fontSize: "25pt" }}>{getDisplayText()}</p>
+      <div
+        style={{
+          fontSize: "25pt",
+          width: "80%",
+          maxWidth: 512,
+          margin: "auto"
+        }}
+      >
+        <p>{getDisplayText()}</p>
+      </div>
       <p>
         <TextInput
           style={{
